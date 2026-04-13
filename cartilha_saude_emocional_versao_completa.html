@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartilha de Saúde Emocional</title>
+
+  <style>
+    :root{
+      --bg:#eef2ff;
+      --bg-soft:#f8faff;
+      --text:#1f2937;
+      --text-soft:#4b5563;
+      --card:#ffffff;
+      --primary:#4338ca;
+      --primary-2:#6366f1;
+      --highlight:#ddd6fe;
+      --shadow:0 10px 30px rgba(0,0,0,0.10);
+      --border:rgba(67,56,202,0.12);
+    }
+
+    body.dark{
+      --bg:#0b1120;
+      --bg-soft:#111827;
+      --text:#e5e7eb;
+      --text-soft:#cbd5e1;
+      --card:#172033;
+      --primary:#818cf8;
+      --primary-2:#6366f1;
+      --highlight:#312e81;
+      --shadow:0 10px 30px rgba(0,0,0,0.35);
+      --border:rgba(129,140,248,0.18);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      transition:background .35s, color .35s;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    .progress{
+      position:fixed;
+      top:0;
+      left:0;
+      width:0%;
+      height:5px;
+      background:linear-gradient(90deg, var(--primary), var(--primary-2));
+      z-index:2000;
+      box-shadow:0 0 10px rgba(99,102,241,0.5);
+    }
+
+    .toggle{
+      position:fixed;
+      top:16px;
+      right:16px;
+      z-index:1500;
+      border:none;
+      background:var(--card);
+      color:var(--text);
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      font-size:1.1rem;
+      transition:transform .25s, background .35s, color .35s;
+    }
+
+    .toggle:hover{
+      transform:translateY(-2px) scale(1.04);
+    }
+
+    header{
+      min-height:100vh;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      padding:24px;
+      background:
+        linear-gradient(rgba(10,15,35,.65), rgba(10,15,35,.7)),
+        url('https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=1600&q=80');
+      background-size:cover;
+      background-position:center;
+      overflow:hidden;
+    }
+
+    header::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(129,140,248,.18), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,.08), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(99,102,241,.18), transparent 30%);
+      animation:floatBg 10s infinite alternate ease-in-out;
+    }
+
+    .hero{
+      position:relative;
+      z-index:2;
+      max-width:850px;
+      animation:heroUp 1s ease;
+    }
+
+    .hero-badge{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:8px 14px;
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(8px);
+      font-size:.95rem;
+    }
+
+    h1{
+      font-size:3.4rem;
+      line-height:1.1;
+      margin-bottom:16px;
+      text-shadow:0 4px 14px rgba(0,0,0,.25);
+    }
+
+    .hero p{
+      font-size:1.15rem;
+      max-width:700px;
+      margin:0 auto 24px;
+      color:#e5e7eb;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 24px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:700;
+      transition:transform .25s, opacity .25s, background .35s, color .35s;
+      min-width:170px;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:#111827;
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,.10);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+      backdrop-filter:blur(8px);
+    }
+
+    .btn:hover{
+      transform:translateY(-3px) scale(1.02);
+    }
+
+    .wave{
+      position:absolute;
+      bottom:-1px;
+      left:0;
+      width:100%;
+      z-index:2;
+    }
+
+    main{
+      max-width:1150px;
+      margin:auto;
+      padding:36px 16px 70px;
+    }
+
+    .intro-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:-70px;
+      position:relative;
+      z-index:5;
+      margin-bottom:24px;
+    }
+
+    .mini-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      transition:transform .25s, background .35s, color .35s;
+    }
+
+    .mini-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .mini-card h3{
+      color:var(--primary);
+      margin-bottom:8px;
+      font-size:1.1rem;
+    }
+
+    .section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      margin:22px 0;
+      opacity:0;
+      transform:translateY(50px);
+      transition:opacity .8s ease, transform .8s ease, background .35s, color .35s;
+    }
+
+    .section.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .section h2{
+      font-size:1.8rem;
+      margin-bottom:12px;
+      color:var(--primary);
+    }
+
+    .section p{
+      color:var(--text-soft);
+      font-size:1.03rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+      align-items:center;
+    }
+
+    .section img{
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      transition:transform .35s;
+    }
+
+    .section img:hover{
+      transform:scale(1.02);
+    }
+
+    .highlight{
+      background:var(--highlight);
+      color:var(--text);
+      padding:14px 16px;
+      border-radius:16px;
+      margin-top:16px;
+      font-weight:700;
+    }
+
+    .cards-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:var(--bg-soft);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      transition:transform .25s;
+    }
+
+    .info-card:hover{
+      transform:translateY(-4px);
+    }
+
+    .info-card strong{
+      display:block;
+      color:var(--primary);
+      margin-bottom:6px;
+    }
+
+    .list{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .list-item{
+      background:var(--bg-soft);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px 16px;
+      color:var(--text-soft);
+    }
+
+    .support-box{
+      margin-top:18px;
+      padding:20px;
+      border-radius:20px;
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:white;
+      box-shadow:var(--shadow);
+    }
+
+    .support-box strong{
+      font-size:1.25rem;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .quiz-box{
+      margin-top:18px;
+      background:var(--bg-soft);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:20px;
+    }
+
+    .quiz-option{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:12px 0;
+      font-size:1rem;
+      color:var(--text-soft);
+    }
+
+    .quiz-option input{
+      width:18px;
+      height:18px;
+      accent-color:var(--primary);
+    }
+
+    .quiz-btn{
+      margin-top:10px;
+      border:none;
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:white;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .25s, opacity .25s;
+    }
+
+    .quiz-btn:hover{
+      transform:translateY(-2px);
+      opacity:.95;
+    }
+
+    #res{
+      margin-top:16px;
+      font-weight:700;
+      color:var(--primary);
+    }
+
+    .credits{
+      text-align:center;
+    }
+
+    .students-list{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px;
+      text-align:left;
+    }
+
+    .student-item{
+      background:var(--bg-soft);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 14px;
+      color:var(--text-soft);
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 18px 45px;
+      color:var(--text-soft);
+    }
+
+    .top{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      width:52px;
+      height:52px;
+      border:none;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:white;
+      font-size:1.2rem;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      display:none;
+      z-index:1500;
+      transition:transform .25s, opacity .25s;
+    }
+
+    .top:hover{
+      transform:translateY(-3px) scale(1.03);
+    }
+
+    @keyframes heroUp{
+      from{
+        opacity:0;
+        transform:translateY(35px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes floatBg{
+      from{
+        transform:translateY(0) scale(1);
+      }
+      to{
+        transform:translateY(-15px) scale(1.03);
+      }
+    }
+
+    @media (max-width: 980px){
+      .intro-grid,
+      .cards-3,
+      .content-grid,
+      .students-list{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:2.6rem;
+      }
+
+      .section img{
+        height:260px;
+      }
+    }
+
+    @media (max-width: 600px){
+      h1{
+        font-size:2.1rem;
+      }
+
+      .hero p{
+        font-size:1rem;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .section{
+        padding:22px 18px;
+      }
+
+      .mini-card{
+        padding:18px;
+      }
+
+      .toggle{
+        width:44px;
+        height:44px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress" id="progressBar"></div>
+
+  <button class="toggle" onclick="modo()" id="themeBtn">🌙</button>
+
+  <header>
+    <div class="hero">
+      <div class="hero-badge">Projeto escolar • Bem-estar e saúde emocional</div>
+      <h1>Cartilha de Saúde Emocional</h1>
+      <p id="fraseTopo">Cuidar da mente também é uma forma de cuidar da vida.</p>
+
+      <div class="hero-buttons">
+        <a href="#conteudo" class="btn btn-primary">Começar</a>
+        <a href="#quiz" class="btn btn-secondary">Fazer quiz</a>
+      </div>
+    </div>
+
+    <svg class="wave" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg">
+      <path fill="currentColor" opacity="1"
+        d="M0,128L48,122.7C96,117,192,107,288,112C384,117,480,139,576,144C672,149,768,139,864,122.7C960,107,1056,85,1152,85.3C1248,85,1344,107,1392,117.3L1440,128L1440,181L1392,181C1344,181,1248,181,1152,181C1056,181,960,181,864,181C768,181,672,181,576,181C480,181,384,181,288,181C192,181,96,181,48,181L0,181Z">
+      </path>
+    </svg>
+  </header>
+
+  <main id="conteudo">
+
+    <section class="intro-grid">
+      <div class="mini-card">
+        <h3>Autoconhecimento</h3>
+        <p>Entender o que você sente ajuda a reagir melhor em momentos difíceis.</p>
+      </div>
+
+      <div class="mini-card">
+        <h3>Equilíbrio</h3>
+        <p>Saúde emocional melhora decisões, relações e a forma de lidar com pressão.</p>
+      </div>
+
+      <div class="mini-card">
+        <h3>Apoio</h3>
+        <p>Pedir ajuda é um sinal de coragem, não de fraqueza.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="content-grid">
+        <div>
+          <h2>O que é saúde emocional?</h2>
+          <p>
+            Saúde emocional é a capacidade de reconhecer, compreender e lidar com as próprias emoções
+            de forma equilibrada. Isso não significa nunca ficar triste, ansioso ou irritado, mas sim
+            aprender a enfrentar esses sentimentos com consciência.
+          </p>
+
+          <div class="highlight">
+            Ignorar o que sente não faz desaparecer. Muitas vezes, isso só aumenta o peso por dentro.
+          </div>
+        </div>
+
+        <div>
+          <img src="https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1200&q=80" alt="Pessoa refletindo sobre emoções">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Por que isso é tão importante?</h2>
+
+      <div class="cards-3">
+        <div class="info-card">
+          <strong>Pressão diária</strong>
+          <p>Estudos, família, futuro, redes sociais e responsabilidades podem gerar tensão.</p>
+        </div>
+
+        <div class="info-card">
+          <strong>Decisões melhores</strong>
+          <p>Quando a mente está mais equilibrada, as escolhas tendem a ser mais conscientes.</p>
+        </div>
+
+        <div class="info-card">
+          <strong>Mais estabilidade</strong>
+          <p>Aprender a lidar com emoções traz mais firmeza em momentos difíceis.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Como desenvolver o bem-estar emocional?</h2>
+
+      <div class="list">
+        <div class="list-item">Praticar o autoconhecimento e observar o que você sente.</div>
+        <div class="list-item">Conversar com alguém de confiança quando algo estiver pesado.</div>
+        <div class="list-item">Controlar impulsos e pensar antes de agir.</div>
+        <div class="list-item">Respeitar os próprios limites e cuidar da rotina.</div>
+        <div class="list-item">Buscar ajuda profissional quando necessário.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Benefícios de cuidar da saúde emocional</h2>
+
+      <div class="cards-3">
+        <div class="info-card">
+          <strong>Mais autoestima</strong>
+          <p>Você passa a se entender melhor e se tratar com mais respeito.</p>
+        </div>
+
+        <div class="info-card">
+          <strong>Mais equilíbrio</strong>
+          <p>As emoções deixam de controlar tudo e você ganha mais domínio sobre si.</p>
+        </div>
+
+        <div class="info-card">
+          <strong>Relacionamentos melhores</strong>
+          <p>Fica mais fácil se comunicar e conviver com outras pessoas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Você não está sozinho</h2>
+      <p>
+        Todo mundo passa por momentos difíceis. Em fases de tristeza, ansiedade, medo ou sobrecarga,
+        procurar ajuda é uma atitude de força.
+      </p>
+
+      <div class="support-box">
+        <strong>CVV — 188</strong>
+        <span>Centro de Valorização da Vida • Atendimento gratuito e apoio emocional.</span>
+      </div>
+
+      <div class="highlight">
+        Sentir é humano. Falar sobre isso e buscar apoio é coragem.
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <h2>Teste seus conhecimentos</h2>
+      <p>Marque as opções que mais combinam com você:</p>
+
+      <div class="quiz-box">
+        <label class="quiz-option">
+          <input type="checkbox" class="q">
+          Entendo melhor o que estou sentindo.
+        </label>
+
+        <label class="quiz-option">
+          <input type="checkbox" class="q">
+          Penso antes de agir em momentos difíceis.
+        </label>
+
+        <label class="quiz-option">
+          <input type="checkbox" class="q">
+          Converso com alguém quando não estou bem.
+        </label>
+
+        <button class="quiz-btn" onclick="quiz()">Ver resultado</button>
+        <p id="res"></p>
+      </div>
+    </section>
+
+    <section class="section credits">
+      <h2>Créditos</h2>
+      <p>Colégio Estadual Mimoso do Oeste - Tempo Integral</p>
+      <p>Turma: 2º Integral</p>
+
+      <div class="highlight">Alunos participantes</div>
+
+      <div class="students-list">
+        <div class="student-item">Anny</div>
+        <div class="student-item">Cecília</div>
+        <div class="student-item">Douglas</div>
+        <div class="student-item">Evelyn</div>
+        <div class="student-item">Gabriel</div>
+        <div class="student-item">Gabriele</div>
+        <div class="student-item">Jeany</div>
+        <div class="student-item">Lais</div>
+        <div class="student-item">Lorena</div>
+        <div class="student-item">Maria</div>
+        <div class="student-item">Matheus</div>
+        <div class="student-item">Max</div>
+        <div class="student-item">Natanniel</div>
+        <div class="student-item">Paulo Henrique</div>
+        <div class="student-item">Paulo Ricardo</div>
+        <div class="student-item">Pedro Henrique</div>
+        <div class="student-item">Raisla</div>
+        <div class="student-item">Ruthe</div>
+        <div class="student-item">Victor Hugo</div>
+        <div class="student-item">Vitória</div>
+      </div>
+    </section>
+
+  </main>
+
+  <button class="top" id="topBtn" onclick="subir()">↑</button>
+
+  <footer>
+    <p>Cartilha de Saúde Emocional</p>
+  </footer>
+
+  <script>
+    const frases = [
+      "Cuidar da mente também é uma forma de cuidar da vida.",
+      "Você não precisa carregar tudo sozinho.",
+      "Pedir ajuda é um ato de coragem.",
+      "Equilíbrio emocional também é força.",
+      "Entender o que sente pode mudar tudo."
+    ];
+
+    document.getElementById("fraseTopo").innerText =
+      frases[Math.floor(Math.random() * frases.length)];
+
+    function aplicarTemaSalvo() {
+      const tema = localStorage.getItem("tema");
+      const btn = document.getElementById("themeBtn");
+
+      if (tema === "dark") {
+        document.body.classList.add("dark");
+        btn.innerText = "☀️";
+      } else {
+        btn.innerText = "🌙";
+      }
+    }
+
+    function modo() {
+      document.body.classList.toggle("dark");
+
+      const btn = document.getElementById("themeBtn");
+
+      if (document.body.classList.contains("dark")) {
+        localStorage.setItem("tema", "dark");
+        btn.innerText = "☀️";
+      } else {
+        localStorage.setItem("tema", "light");
+        btn.innerText = "🌙";
+      }
+    }
+
+    function revelarSecoes() {
+      const sections = document.querySelectorAll(".section");
+      sections.forEach((el, index) => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 90) {
+          setTimeout(() => {
+            el.classList.add("active");
+          }, index * 120);
+        }
+      });
+    }
+
+    function atualizarBarra() {
+      const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+      const progresso = scrollTotal > 0 ? (window.scrollY / scrollTotal) * 100 : 0;
+      document.getElementById("progressBar").style.width = progresso + "%";
+    }
+
+    function controlarBotaoTopo() {
+      const btn = document.getElementById("topBtn");
+      btn.style.display = window.scrollY > 350 ? "block" : "none";
+    }
+
+    function subir() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function quiz() {
+      const marcados = document.querySelectorAll(".q:checked").length;
+      const res = document.getElementById("res");
+
+      if (marcados === 0) {
+        res.innerText = "Pontuação: 0/3 • Comece observando mais suas emoções no dia a dia.";
+      } else if (marcados === 1) {
+        res.innerText = "Pontuação: 1/3 • Você pode fortalecer mais sua saúde emocional.";
+      } else if (marcados === 2) {
+        res.innerText = "Pontuação: 2/3 • Você está no caminho certo.";
+      } else {
+        res.innerText = "Pontuação: 3/3 • Muito bom! Você demonstra um bom cuidado com suas emoções.";
+      }
+    }
+
+    window.addEventListener("scroll", () => {
+      revelarSecoes();
+      atualizarBarra();
+      controlarBotaoTopo();
+    });
+
+    window.addEventListener("load", () => {
+      aplicarTemaSalvo();
+      revelarSecoes();
+      atualizarBarra();
+      controlarBotaoTopo();
+    });
+  </script>
+</body>
+</html>
